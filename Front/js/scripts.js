@@ -104,6 +104,7 @@ const tipo = document.getElementById('tipo');
                     var documento = $('#cpfcnpj').val().replace(/\D/g, '');
                     var selectedOption = $('#selectOpcao').children('option:selected').val();
                     
+                    cadastrar()
                     // Realize outras validações antes da validação do CPF/CNPJ, se necessário
                     
 
@@ -117,11 +118,21 @@ const tipo = document.getElementById('tipo');
                         alert('CNPJ inválido');
                         return;
                       }
+                      
+        
+
                     }
                     
                     // Se todas as validações passarem, envie os dados do formulário para o endpoint Java
 
 
+                    
+                  
+
+
+                  
+
+                  function cadastrar(){
                     var formData = {
                       
                       name: name,
@@ -136,7 +147,7 @@ const tipo = document.getElementById('tipo');
                       numero: numero,
                     };
                     
-                    fetch('http://localhost:8080/usuarios', {
+                    fetch('http://localhost:8080/usuarios/cadastrar', {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json'
@@ -156,38 +167,12 @@ const tipo = document.getElementById('tipo');
                     .catch(error => {
                       console.error('Erro:', error);
                     });
-                  });
+
+                  };
+
+            });
+            
                   
-
-
-                  
-
-                  function cadastrar(){
-                    fetch("http://localhost:8080/usuarios",
-                      {
-                          headers: {
-                            "Accept": "application/json",
-                            "Content-Type": "application/json"
-                          },
-                          method: "POST",
-                          body: JSON.stringify({
-                              name: name.value,
-                              email: email.value,
-                              selectOpcao: selectOpcao.value,
-                              cpfcnpj: cpfcnpj.value,
-                              cep: cep.value,
-                              endereco: endereco.value,
-                              bairro: bairro.value,
-                              cidade: cidade.value,
-                              estado: estado.value,
-                              numero: numero.value,
-                          })
-                          .then(function(res) {console.log(res)})
-                          .catch(function(res) {console.log(res)})
-                      }
-                    
-                    )
-                  }
 
 
               

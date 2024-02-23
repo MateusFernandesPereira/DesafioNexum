@@ -40,6 +40,9 @@ public class Usuario {
 	@Column(name="cidade", length = 100, nullable = true)
 	private String cidade;
 	
+	@Column(name="estado", length = 2, nullable = true)
+	private String estado;
+	
 	@Column(name="numero", length = 2, nullable = true)
 	private String numero;
 
@@ -67,12 +70,12 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public String getTipoPessoa() {
+	public String getTipo_pessoa() {
 		return tipo_pessoa;
 	}
 
-	public void setTipoPessoa(String tipoPessoa) {
-		this.tipo_pessoa = tipoPessoa;
+	public void setTipo_pessoa(String tipo_pessoa) {
+		this.tipo_pessoa = tipo_pessoa;
 	}
 
 	public String getCpfcnpj() {
@@ -115,6 +118,14 @@ public class Usuario {
 		this.cidade = cidade;
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	public String getNumero() {
 		return numero;
 	}
@@ -122,8 +133,10 @@ public class Usuario {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	
+
 }
+	
+	
 	
 	
 	

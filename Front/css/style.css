@@ -47,7 +47,7 @@ body {
 }
 
 .form-header{
-    margin-bottom: 3rem;
+    margin-bottom: 0rem;
     display: flex;
     justify-content: space-between;
 }
@@ -55,7 +55,7 @@ body {
 .search-button{
     display: flex;
     align-items: center;
-    margin-left: 3rem;
+    margin-left: 22rem;
 }
 
 .search-button button{

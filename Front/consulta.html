@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script src="js/Cscripts.js" defer></script>
+    <link rel="stylesheet" href="css/Cstyle.css" type="text/css">
+    <title>Lista de Dados</title>
+    
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-header">
+
+            <div class="title">
+                <h1>Lista de Dados</h1>
+            </div>
+
+            <div class="input-box">
+                <label for="searchName">Pesquisar por nome:</label>
+                <input type="text" id="searchName" placeholder="Digite o nome...">
+            </div>
+
+            <div class="input-box">
+                
+                <label for="searchCpfCnpj">Pesquisar por CPF/CNPJ:</label>
+                <input type="text" id="searchCpfCnpj" placeholder="Digite o CPF ou CNPJ...">      
+            </div>  
+
+
+        </div>
+        
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome Completo</th>
+                    <th>Email</th>
+                    <th>Tipo Pessoa</th>
+                    <th>CPF/CNPJ</th>
+                    <th>CEP</th>
+                    <th>Endereço</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
+                    <th>Número</th>
+                </tr>
+            </thead>
+            <tbody id="data-list">
+                <!-- Os dados serão inseridos aqui dinamicamente -->
+            </tbody>
+        </table>
+
+        <div class="search-button">
+            <button><a href="index.html">Cadastrar</a></button>
+        </div>
+    
+    </div>
+    
+</body>
+</html>
