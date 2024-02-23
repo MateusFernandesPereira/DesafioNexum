@@ -1,112 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <title>Formulário de Cadastro</title>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+<head>
+    <title>Formulário de Cadastro</title>
 
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossorigin="anonymous"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-        <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-        <script src="js/scripts.js" defer></script>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 
-        
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-    </head>
+    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="js/scripts.js" defer></script>
 
 
-    <body>
 
-        
-        <div class="container">
-            
-            <div class="form-image">
-                <img src="img/img1.svg" alt="">
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+        <div class="form-image">
+            <img src="img/img1.svg" alt="">
+        </div>
+
+        <div class="form">
+
+
+            <div class="form-header">
+
+                <div class="title">
+                    <h1>Cadastre-se</h1>
+                </div>
+
+                <div class="search-button">
+                    <button><a href="consulta.html">Consultar</a></button>
+                </div>
+
             </div>
-            
-            <div class="form">
 
+            <form id="formCadastro" method="post" action="">
 
-                    <div class="form-header">
-
-                        <div class="title">
-                            <h1>Cadastre-se</h1>
-                        </div>
-
-                        <div class="search-button">
-                            <button><a href="consulta.html">Consultar</a></button>
-                        </div>
-
-                    </div>
-                
-                <form id="formCadastro" method="post" action="">
-
-                    <div class="input-group">
-                        <div class="input-box">
-                            <label>Nome:</label>
-                            <input type="text" id="name" placeholder="Digite seu Nome" required>
-                        </div>
-
-                        <div class="input-box">
-                            <label>E-mail:</label>
-                            <input type="email" id="email" placeholder="Digite seu Email" required>
-                        </div>
-
-                        <div class="select-box">
-                            <label>Tipo:</label>
-                                <select id="selectOpcao">
-                                    <option value="cpf">Física</option>
-                                    <option value="cnpj">Jurídica</option>
-                                </select>
-                        </div>              
-
-                        <div class="input-box">
-                            <label id="tipo">CPF</label>
-                            <input type="text" id="cpfcnpj" required placeholder="Digite o CPF">
-                        </div>
-                        
-                        <div class="input-box">
-                            <label>CEP:</label>
-                            <input type="text" id="cep" required placeholder="Consulte seu CEP">
-                        </div>
-
-                        <div class="input-box">
-                            <label>Endereço:</label>
-                            <input type="text" id="endereco" readonly required>
-                        </div>
-
-                        <div class="input-box">
-                            <label>Bairro:</label>
-                            <input type="text" id="bairro" readonly required>
-                        </div>
-
-                        <div class="input-box">
-                            <label>Cidade:</label>
-                            <input type="text" id="cidade" readonly required>
-                        </div>
-
-                        <div class="input-box">
-                            <label>Estado:</label>
-                            <input type="text" id="estado" readonly required>
-                        </div>
-
-                        <div class="input-box">
-                            <label>Número:</label>
-                            <input type="text" id="numero" required placeholder="Digite o número de sua residência">
-                        </div>  
-
+                <div class="input-group">
+                    <div class="input-box">
+                        <label>Nome:</label>
+                        <input type="text" id="name" placeholder="Digite seu Nome" required>
                     </div>
 
-                        <div class="register-button">
-                            <button id="validar" type="submit"><a>Cadastrar</a></button>
-                        </div>
-                </form>
+                    <div class="input-box">
+                        <label>E-mail:</label>
+                        <input type="email" id="email" placeholder="Digite seu Email" required>
+                    </div>
+
+                    <div class="select-box">
+                        <label>Tipo:</label>
+                        <select id="selectOpcao">
+                            <option value="cpf">Física</option>
+                            <option value="cnpj">Jurídica</option>
+                        </select>
+                    </div>
+
+                    <div class="input-box">
+                        <label id="tipo">CPF</label>
+                        <input type="text" id="cpfcnpj" required placeholder="Digite o CPF">
+                    </div>
+
+                    <div class="input-box">
+                        <label>CEP:</label>
+                        <input type="text" id="cep" required placeholder="Consulte seu CEP">
+                    </div>
+
+                    <div class="input-box">
+                        <label>Endereço:</label>
+                        <input type="text" id="endereco" readonly required>
+                    </div>
+
+                    <div class="input-box">
+                        <label>Bairro:</label>
+                        <input type="text" id="bairro" readonly required>
+                    </div>
+
+                    <div class="input-box">
+                        <label>Cidade:</label>
+                        <input type="text" id="cidade" readonly required>
+                    </div>
+
+                    <div class="input-box">
+                        <label>Estado:</label>
+                        <input type="text" id="estado" readonly required>
+                    </div>
+
+                    <div class="input-box">
+                        <label>Número:</label>
+                        <input type="text" id="numero" required placeholder="Digite o número de sua residência">
+                    </div>
+
+                </div>
+
+                <div class="register-button">
+                    <button id="validar" type="submit"><a>Cadastrar</a></button>
+                </div>
+            </form>
 
         </div>
 </body>
+
 </html>

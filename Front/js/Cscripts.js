@@ -1,15 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
+function deletarUsuario(event) {
+    console.log(event)
+    window.valID = event.target.value;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
     var dataList = document.getElementById("data-list");
 
     // Fazendo a solicitação AJAX
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost:8080/usuarios", true);
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var dados = JSON.parse(xhr.responseText);
 
             // Processando e exibindo os dados na tabela
-            dados.forEach(function(dado) {
+            dados.forEach(function (dado) {
                 var row = document.createElement("tr");
                 row.innerHTML = `
                     <td>${dado.id}</td>
@@ -23,19 +30,28 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>${dado.cidade}</td>
                     <td>${dado.estado}</td>
                     <td>${dado.numero}</td>
+                    <td>
+                    <div style= "display: flex; flex-direction: row">
+                    <button onclick="deletarUsuario()" id="${dado.id}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Launch demo modal 
+                  </button> <button onclick="editarUsuario()" id="${dado.id}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Launch demo modal 
+                </button>
+                </div>
+                </td>
                 `;
                 dataList.appendChild(row);
             });
 
             // Adicionando a funcionalidade de pesquisa por nome
             var inputName = document.getElementById("searchName");
-            inputName.addEventListener("input", function() {
+            inputName.addEventListener("input", function () {
                 filterTable(inputName.value.toUpperCase(), 1); // 1 indica a coluna do nome completo
             });
 
             // Adicionando a funcionalidade de pesquisa por CPF/CNPJ
             var inputCpfCnpj = document.getElementById("searchCpfCnpj");
-            inputCpfCnpj.addEventListener("input", function() {
+            inputCpfCnpj.addEventListener("input", function () {
                 filterTable(inputCpfCnpj.value.toUpperCase(), 4); // 4 indica a coluna do CPF/CNPJ
             });
 
@@ -51,10 +67,13 @@ document.addEventListener("DOMContentLoaded", function() {
                         } else {
                             rows[i].style.display = "none";
                         }
-                    }       
+                    }
                 }
             }
         }
     };
     xhr.send();
+
 });
+
+

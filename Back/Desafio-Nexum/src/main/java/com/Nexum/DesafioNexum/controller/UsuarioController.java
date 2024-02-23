@@ -1,9 +1,7 @@
 package com.Nexum.DesafioNexum.controller;
 
 import java.util.List;
-
-
-import java.util.Iterator;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,14 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.Nexum.DesafioNexum.dao.IUsuario;
 import com.Nexum.DesafioNexum.model.Usuario;
-import java.util.ArrayList;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/usuarios")
 public class UsuarioController {
-	
-	
 	
 	@Autowired
 	private IUsuario dao;
@@ -37,7 +32,7 @@ public class UsuarioController {
 		return (List<Usuario>) dao.findAll();
 	}
 	
-	@PostMapping("/cadastrar")
+	@PostMapping
 	public Usuario criarUsuario(@RequestBody Usuario usuario) {
 		Usuario usarioNovo = dao.save(usuario);
 		return usarioNovo;
@@ -49,21 +44,14 @@ public class UsuarioController {
 		return usarioNovo;
 	}
 	
-	@DeleteMapping("/{}id")
+	@DeleteMapping("/{id}")	
 	
+	public Optional<Usuario> excluirUsuario(@PathVariable Integer id) {
+		Optional<Usuario> usuario = dao.findById(id);
+		dao.deleteById(id);
+		return usuario;
+	}
 	
-	public void deleteUsuarios(@PathVariable Integer id) {
-		
-		List<Usuario> usuarioList = new ArrayList<>();
-		
-        Iterator<Usuario> iterator = usuarioList.iterator();
-        while (iterator.hasNext()) {
-            Usuario usuario = iterator.next();
-            if (usuario.getId().equals(id)) {
-                iterator.remove();
-            }
-        }
-    }
-};
+}
 
 	
