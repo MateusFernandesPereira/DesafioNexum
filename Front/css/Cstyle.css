@@ -25,7 +25,7 @@
 .search-button {
     display: flex;
     align-items: center;
-    margin-left: 90%;
+    justify-content: space-between;
     margin-top: 1rem;
 }
 
@@ -36,6 +36,8 @@
     border-radius: 5px;
     cursor: pointer;
     height: 40px;
+    margin-left: auto;
+    /* Movendo o botão "Cadastrar" para a direita */
 }
 
 .search-button button:hover {
@@ -92,8 +94,14 @@ body {
 }
 
 .container {
-    width: 100%;
-    margin: 5x auto;
+
+
+    width: 95%;
+    /* Aumentado para 95% */
+    max-width: none;
+    /* Removendo a limitação de largura máxima */
+    margin: 0 auto;
+    /* Centralizado na página */
     padding: 20px;
     background-color: #f7f7f7;
     border-radius: 8px;
@@ -102,6 +110,7 @@ body {
 
 table {
     width: 100%;
+    /* Ajustado para 100% */
     border-collapse: collapse;
 }
 
@@ -117,17 +126,26 @@ th {
 
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
 
-@media screen and (max-width: 1300px) {
-    .form-image {
-        display: none;
-    }
+.pagination li {
+    margin: 0 5px;
+    /* Espaçamento entre os itens da lista */
+}
 
-    .container {
-        width: 50%;
-    }
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
 
-    .form {
-        width: 100%;
-    }
+.pagination-container ul {
+    margin: 0;
+    /* Removendo a margem padrão */
 }

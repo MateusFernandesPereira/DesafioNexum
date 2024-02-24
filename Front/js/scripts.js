@@ -87,6 +87,7 @@ $(document).ready(function () {
   })
 
   $('#formCadastro').submit(function (event) {
+    event.preventDefault(); // Evita o envio automático do formulário
 
     var documento = $('#cpfcnpj').val().replace(/\D/g, '');
     var selectedOption = $('#selectOpcao').children('option:selected').val();
@@ -103,53 +104,49 @@ $(document).ready(function () {
         alert('CNPJ inválido');
         return;
       }
-
-      event.preventDefault()
-      cadastrar()
-
     }
 
+    // Se todas as validações passarem, então chame a função cadastrar
+    cadastrar();
+  });
 
-    function cadastrar() {
-      var formData = {
-
-        name_completo: $("#name").val(),
-        email: $("#email").val(),
-        tipo_pessoa: $("#selectOpcao").val(),
-        cpfcnpj: $("#cpfcnpj").val(),
-        cep: $("#cep").val(),
-        endereco: $("#endereco").val(),
-        bairro: $("#bairro").val(),
-        cidade: $("#cidade").val(),
-        estado: $("#estado").val(),
-        numero: $("#numero").val(),
-      };
-
-      fetch('http://localhost:8080/usuarios', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Erro ao enviar os dados');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log('Dados enviados com sucesso:', data);
-          alert("Usuário cadastrado com sucesso!")
-          // Faça algo com a resposta, se necessário
-        })
-        .catch(error => {
-          console.error('Erro:', error);
-        });
-
+  function cadastrar() {
+    var formData = {
+      name_completo: $("#name").val(),
+      email: $("#email").val(),
+      tipo_pessoa: $("#selectOpcao").val(),
+      cpfcnpj: $("#cpfcnpj").val(),
+      cep: $("#cep").val(),
+      endereco: $("#endereco").val(),
+      bairro: $("#bairro").val(),
+      cidade: $("#cidade").val(),
+      estado: $("#estado").val(),
+      numero: $("#numero").val(),
     };
 
-  });
+    fetch('http://localhost:8080/usuarios', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao enviar os dados');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Dados enviados com sucesso:', data);
+        alert("Usuário cadastrado com sucesso!");
+        // Faça algo com a resposta, se necessário
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+      });
+  }
+
 
   function validarCPF(cpf) {
     var soma = 0;
@@ -228,3 +225,44 @@ $(document).ready(function () {
   }
 
 });
+
+
+/*
+var formData = {
+
+    name_completo: $("#name").val(),
+    email: $("#email").val(),
+    tipo_pessoa: $("#selectOpcao").val(),
+    cpfcnpj: $("#cpfcnpj").val(),
+    cep: $("#cep").val(),
+    endereco: $("#endereco").val(),
+    bairro: $("#bairro").val(),
+    cidade: $("#cidade").val(),
+    estado: $("#estado").val(),
+    numero: $("#numero").val(),
+};
+
+
+fetch('http://localhost:8080/usuarios', {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+})
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao enviar os dados');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Dados enviados com sucesso:', data);
+        alert("Usuário cadastrado com sucesso!")
+        // Faça algo com a resposta, se necessário
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
+
+*/
