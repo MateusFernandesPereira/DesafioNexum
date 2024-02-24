@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     var dataList = document.getElementById("data-list");
     var pagination = document.getElementById("pagination");
     var dados = [];
@@ -52,138 +51,109 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${dado.estado}</td>
                 <td>${dado.numero}</td>
                 <td>
-                    <div style="display: flex; flex-direction: row; margin-left: 5px">
-                        <button onclick="coletarId()" id="${dado.id}" type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalEdicao">
-                            <i class="bi bi-pencil"></i>
-                        </button>
-                        <button id="${dado.id}" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelecao" data-user-id="${dado.id}">
-                            <i class="bi bi-trash"></i>
-                        </button>
+                    <div style="display: flex; flex-direction: row">
+                        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalEdicao">
+                        <i class="bi bi-pencil"></i></button>
+                        <button type="button" data-id="${dado.id}" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelecao">
+                        <i class="bi bi-trash"></i></button>
                     </div>
                 </td>
             `;
+
+            row.addEventListener("click", function (event) {
+                var id = parseInt(this.cells[0].textContent); // Aqui estamos pegando o valor do ID da primeira célula da linha clicada
+                console.log("ID do usuário:", id);
+                // Aqui estamos fazendo a conexão do delete do endpoint assim que acionar o botão de confirmação do modal
+                document.querySelector('#modalDelecao .btn-danger').addEventListener('click', function () {
+                    fetch(`http://localhost:8080/usuarios/${id}`, {
+                        method: 'DELETE'
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Erro ao excluir o usuário');
+                            }
+                            console.log('Usuário excluído com sucesso');
+                            alert("Usuário excluído com sucesso")
+                            location.reload()
+                            // Faça o que for necessário após excluir o usuário com sucesso
+                        })
+                        .catch(error => {
+                            console.error('Erro:', error);
+                            // Trate o erro conforme necessário
+                        });
+                });
+
+                /*
+                document.querySelector('#modalDelecao .btn-danger').addEventListener('click', function () {
+                    fetch(`http://localhost:8080/usuarios/${id}`, {
+                        method: 'DELETE'
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Erro ao excluir o usuário');
+                            }
+                            console.log('Usuário excluído com sucesso');
+                            alert("Usuário excluído com sucesso")
+                            location.reload()
+                            // Faça o que for necessário após excluir o usuário com sucesso
+                        })
+                        .catch(error => {
+                            console.error('Erro:', error);
+                            // Trate o erro conforme necessário
+                        });  
+                });
+                */
+            });
             dataList.appendChild(row);
         }
     }
 
-    // Adiciona ouvinte de evento ao botão de exclusão
-    document.querySelectorAll('.btn-danger').forEach(button => {
-        button.addEventListener('click', function () {
-            var userId = parseInt(this.getAttribute('data-user-id')); // Obtém o ID do usuário do atributo data
-            coletarId2(userId); // Chama a função coletarId2 com o ID do usuário como argumento
+    // Adiciona ouvinte de evento ao botão de exclusão dentro do modal
+
+
+
+
+
+
+
+
+
+    function setupPagination(items, wrapper, rowsPerPage) {
+        wrapper.innerHTML = "";
+
+        var pageCount = Math.ceil(items.length / rowsPerPage);
+
+        for (var i = 1; i <= pageCount; i++) {
+            var btn = paginationButton(i, items);
+            wrapper.appendChild(btn);
+        }
+    }
+
+    function paginationButton(page, items) {
+        var button = document.createElement("li");
+        button.classList.add("page-item");
+        var link = document.createElement("a");
+        link.classList.add("page-link");
+        link.innerText = page;
+
+        link.addEventListener("click", function () {
+            currentPage = page;
+            displayList(items, dataList, recordsPerPage, currentPage);
         });
-    });
 
-    // Adiciona ouvinte de evento ao botão de confirmação de exclusão
-    document.querySelector('#modalDelecao .btn-danger').addEventListener('click', function () {
-        deletarTrueUsuario(); // Chama a função deletarTrueUsuario quando o botão for clicado
-    });
-
-    function coletarId2(id) {
-        document.getElementById("modalDelecao").dataset.userId = parseInt(id, 10); // Convertendo o ID para inteiro
+        button.appendChild(link);
+        return button;
     }
 
-    function deletarTrueUsuario() {
-        var id = parseInt(document.getElementById("modalDelecao").dataset.userId); // Convertendo o ID para inteiro
+    function filterTable(filter, column) {
+        var filteredData = dados.filter(function (item) {
+            var value = item[column].toUpperCase();
+            return value.includes(filter);
+        });
 
-        fetch(`http://localhost:8080/usuarios/${id}`, {
-            method: 'DELETE'
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro ao excluir o usuário');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Usuário excluído com sucesso:', data);
-                alert("Usuário excluído com sucesso!");
-                location.reload(); // Recarrega a página para atualizar a lista de dados
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert("Erro ao excluir o usuário!");
-            });
+        currentPage = 1; // Define a página atual como 1 após a pesquisa
+
+        displayList(filteredData, dataList, recordsPerPage, currentPage);
+        setupPagination(filteredData, pagination, recordsPerPage);
     }
 });
-
-
-function setupPagination(items, wrapper, rowsPerPage) {
-    wrapper.innerHTML = "";
-
-    var pageCount = Math.ceil(items.length / rowsPerPage);
-
-    for (var i = 1; i <= pageCount; i++) {
-        var btn = paginationButton(i, items);
-        wrapper.appendChild(btn);
-    }
-}
-
-function paginationButton(page, items) {
-    var button = document.createElement("li");
-    button.classList.add("page-item");
-    var link = document.createElement("a");
-    link.classList.add("page-link");
-    link.innerText = page;
-
-    link.addEventListener("click", function () {
-        currentPage = page;
-        displayList(items, dataList, recordsPerPage, currentPage);
-    });
-
-    button.appendChild(link);
-    return button;
-}
-
-function filterTable(filter, column) {
-    var filteredData = dados.filter(function (item) {
-        var value = item[column].toUpperCase();
-        return value.includes(filter);
-    });
-
-    currentPage = 1; // Define a página atual como 1 após a pesquisa
-
-    displayList(filteredData, dataList, recordsPerPage, currentPage);
-    setupPagination(filteredData, pagination, recordsPerPage);
-}
-
-/*
-var formData = {
-
-name_completo: $("#name").val(),
-email: $("#email").val(),
-tipo_pessoa: $("#selectOpcao").val(),
-cpfcnpj: $("#cpfcnpj").val(),
-cep: $("#cep").val(),
-endereco: $("#endereco").val(),
-bairro: $("#bairro").val(),
-cidade: $("#cidade").val(),
-estado: $("#estado").val(),
-numero: $("#numero").val(),
-};
-
-
-fetch('http://localhost:8080/usuarios', {
-method: 'PUT',
-headers: {
-    'Content-Type': 'application/json'
-},
-body: JSON.stringify(formData)
-})
-.then(response => {
-    if (!response.ok) {
-        throw new Error('Erro ao enviar os dados');
-    }
-    return response.json();
-})
-.then(data => {
-    console.log('Dados enviados com sucesso:', data);
-    alert("Usuário cadastrado com sucesso!")
-    // Faça algo com a resposta, se necessário
-})
-.catch(error => {
-    console.error('Erro:', error);
-});
-
-*/
-
