@@ -1,6 +1,3 @@
-//troca da label e da placeholder do CPF/CNPJ
-
-
 const formCadastro = document.getElementById('formCadastro');
 const name = document.getElementById('name');
 const email = document.getElementById('email');
@@ -92,7 +89,13 @@ $(document).ready(function () {
     var documento = $('#cpfcnpj').val().replace(/\D/g, '');
     var selectedOption = $('#selectOpcao').children('option:selected').val();
 
-    // Realize outras validações antes da validação do CPF/CNPJ, se necessário
+
+    // Validando o formato do e-mail
+    var email = $('#email').val();
+    if (!validarEmail(email)) {
+      alert('Por favor, insira um endereço de e-mail válido.');
+      return;
+    }
 
     if (selectedOption === 'cpf') {
       if (!validarCPF(documento)) {
@@ -140,6 +143,7 @@ $(document).ready(function () {
       .then(data => {
         console.log('Dados enviados com sucesso:', data);
         alert("Usuário cadastrado com sucesso!");
+        location.reload()
         // Faça algo com a resposta, se necessário
       })
       .catch(error => {
@@ -224,45 +228,10 @@ $(document).ready(function () {
     $("#estado").val("");
   }
 
+  function validarEmail(email) {
+    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
+
 });
-
-
-/*
-var formData = {
-
-    name_completo: $("#name").val(),
-    email: $("#email").val(),
-    tipo_pessoa: $("#selectOpcao").val(),
-    cpfcnpj: $("#cpfcnpj").val(),
-    cep: $("#cep").val(),
-    endereco: $("#endereco").val(),
-    bairro: $("#bairro").val(),
-    cidade: $("#cidade").val(),
-    estado: $("#estado").val(),
-    numero: $("#numero").val(),
-};
-
-
-fetch('http://localhost:8080/usuarios', {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-})
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro ao enviar os dados');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Dados enviados com sucesso:', data);
-        alert("Usuário cadastrado com sucesso!")
-        // Faça algo com a resposta, se necessário
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-    });
-
-*/
