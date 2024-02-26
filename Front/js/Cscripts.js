@@ -133,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (!validarCamposObrigatorios()) {
                         alert('Por favor, preencha todos os campos.');
-                        event.preventDefault();
                         return;
                     }
 
@@ -141,21 +140,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     var email = $('#email').val();
                     if (!validarEmail(email)) {
                         alert('Por favor, insira um endereço de e-mail válido.');
-                        event.preventDefault();
+
                         return;
                     }
 
                     if (selectedOption === 'cpf') {
                         if (!validarCPF(documento)) {
                             alert('CPF inválido');
-                            event.preventDefault();
+
                             return;
                         }
                     } else if (selectedOption === 'cnpj') {
                         if (!validarCNPJ(documento)) {
                             alert('CNPJ inválido');
-                            event.preventDefault();
                             return;
+
                         }
 
 

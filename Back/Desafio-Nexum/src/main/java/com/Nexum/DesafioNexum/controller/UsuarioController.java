@@ -38,7 +38,7 @@ public class UsuarioController {
 		return usarioNovo;
 	}
 	
-	@PutMapping("/{id}")	
+	@PutMapping	
 	public Usuario editarUsuario(@RequestBody Usuario usuario) {
 		Usuario usarioNovo = dao.save(usuario);;
 		return usarioNovo;
